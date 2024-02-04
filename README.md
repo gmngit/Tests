@@ -9,5 +9,3 @@ Automation tests for web application "stellar burgers" from Yandex Practicum
 * The mimesis library was used to generate test data
 
 * The pydantic library was used to structure the information and represent it as models
-
-* Allure - for create reports

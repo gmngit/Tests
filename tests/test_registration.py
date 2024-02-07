@@ -21,8 +21,8 @@ class TestRegistration:
 
         driver = webdriver.Chrome()
 
-        registration_page = RegistrationPage()
-        registration_page.register(driver, url, user_data.name, user_data.email, user_data.password)
+        registration_page = RegistrationPage(driver)
+        registration_page.register(url, user_data.name, user_data.email, user_data.password)
 
         WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//main//h2[text()='Вход']")))
 

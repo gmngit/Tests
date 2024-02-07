@@ -21,14 +21,14 @@ class TestRegistrationAndLogin:
         )
 
         driver = webdriver.Chrome()
-        registration_page = RegistrationPage()
-        login_page = LoginPage()
+        registration_page = RegistrationPage(driver)
+        login_page = LoginPage(driver)
 
-        registration_page.register(driver, url_reg_page, user_data.name, user_data.email, user_data.password)
+        registration_page.register(url_reg_page, user_data.name, user_data.email, user_data.password)
         WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//main//h2[text()='Вход']")))
         assert url_login_page in driver.current_url
 
-        login_page.login(driver, url_login_page, user_data.email, user_data.password)
+        login_page.login(url_login_page, user_data.email, user_data.password)
         WebDriverWait(driver, 5).until(
             EC.visibility_of_element_located((By.XPATH, "//main//h1[text()='Соберите бургер']")))
         assert Config.MAIN_URL in driver.current_url

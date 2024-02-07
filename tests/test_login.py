@@ -9,7 +9,6 @@ import time
 
 
 class TestLogin:
-
     def test_login_successful(self):
         url = f"{Config.MAIN_URL}/login"
         email = Config.EMAIL
@@ -17,8 +16,8 @@ class TestLogin:
 
         driver = webdriver.Chrome()
 
-        login_page = LoginPage()
-        login_page.login(driver, url, email, password)
+        login_page = LoginPage(driver)
+        login_page.login(url, email, password)
 
         WebDriverWait(driver, 5).until(
             EC.visibility_of_element_located((By.XPATH, LocatorsMainPage.TITLE)))
@@ -32,13 +31,13 @@ class TestLogin:
         url = Config.MAIN_URL
 
         driver = webdriver.Chrome()
-        main_page = MainPage()
-        main_page.open_page(driver, url)
+        main_page = MainPage(driver)
+        main_page.open_page(url)
 
         WebDriverWait(driver, 5).until(
             EC.visibility_of_element_located((By.XPATH, LocatorsMainPage.PERSONAL_ACCOUNT_BUTTON)))
 
-        main_page.find_elements(driver, LocatorsMainPage.PERSONAL_ACCOUNT_BUTTON).click()
+        main_page.find_elements(LocatorsMainPage.PERSONAL_ACCOUNT_BUTTON).click()
 
         WebDriverWait(driver, 5).until(
             EC.visibility_of_element_located((By.XPATH, LocatorsLoginPage.EMAIL)))

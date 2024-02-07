@@ -8,9 +8,12 @@ class LocatorsMainPage:
 
 
 class MainPage:
-    def open_page(self, driver, url):
-        driver.get(url)
+    def __init__(self, driver):
+        self.driver = driver
 
-    def find_elements(self, driver, locator):
-        element = driver.find_element(By.XPATH, locator)
+    def open_page(self, url):
+        self.driver.get(url)
+
+    def find_elements(self, locator):
+        element = self.driver.find_element(By.XPATH, locator)
         return element

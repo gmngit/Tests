@@ -11,17 +11,17 @@ class LocatorsLoginPage:
 
 
 class LoginPage(MainPage):
-    def login(self, driver, url, email, password):
+    def login(self, url, email, password):
         # open page
-        self.open_page(driver, url)
-        WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, LocatorsLoginPage.EMAIL)))
-        assert url in driver.current_url
+        self.open_page(url)
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.XPATH, LocatorsLoginPage.EMAIL)))
+        assert url in self.driver.current_url
 
         # fill in email field
-        self.find_elements(driver, LocatorsLoginPage.EMAIL).send_keys(email)
+        self.find_elements(LocatorsLoginPage.EMAIL).send_keys(email)
 
         # fill in password field
-        self.find_elements(driver, LocatorsLoginPage.PASSWORD).send_keys(password)
+        self.find_elements(LocatorsLoginPage.PASSWORD).send_keys(password)
 
         # click on the button
-        self.find_elements(driver, LocatorsLoginPage.LOGIN_BUTTON).click()
+        self.find_elements(LocatorsLoginPage.LOGIN_BUTTON).click()

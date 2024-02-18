@@ -1,4 +1,3 @@
-from selenium import webdriver
 from pages.registration_page import RegistrationPage
 from pages.login_page import LoginPage
 from utilities.config import Config
@@ -11,7 +10,7 @@ import time
 
 
 class TestRegistrationAndLogin:
-    def test_register_and_login_successful(self):
+    def test_register_and_login_successful(self, driver):
         url_reg_page = f"{Config.MAIN_URL}/register"
         url_login_page = f"{Config.MAIN_URL}/login"
         user_data = User(
@@ -20,18 +19,16 @@ class TestRegistrationAndLogin:
             password=DataGenerator.generate_password()
         )
 
-        driver = webdriver.Chrome()
-        registration_page = RegistrationPage(driver)
-        login_page = LoginPage(driver)
+        registration_page = RegistrationPage()
+        login_page = LoginPage()
 
-        registration_page.register(url_reg_page, user_data.name, user_data.email, user_data.password)
+        registration_page.register(driver, url_reg_page, user_data.name, user_data.email, user_data.password)
         WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//main//h2[text()='Вход']")))
         assert url_login_page in driver.current_url
 
-        login_page.login(url_login_page, user_data.email, user_data.password)
+        login_page.login(driver, url_login_page, user_data.email, user_data.password)
         WebDriverWait(driver, 5).until(
             EC.visibility_of_element_located((By.XPATH, "//main//h1[text()='Соберите бургер']")))
         assert Config.MAIN_URL in driver.current_url
 
         time.sleep(3)
-        driver.quit()
